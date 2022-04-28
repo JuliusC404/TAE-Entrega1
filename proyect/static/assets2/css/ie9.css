@@ -1,0 +1,103 @@
+
+/* BG */
+
+	#bg:before {
+		background: rgba(19, 21, 25, 0.5);
+	}
+
+/* Header */
+	
+	#wrapper .encabezado {
+		margin-bottom: 1.5rem;
+	}
+
+	#header .logo {
+		margin: 0 auto;
+	}
+
+	#header .content {
+		display: inline-block;
+	}
+
+	#header nav ul {
+		display: inline-block;
+	}
+
+		#header nav ul li {
+			display: inline-block;
+		}
+
+	article form nav ul {
+		list-style: none;
+		display: inline-block;
+		margin-top: 3rem;
+	}
+
+		article form nav ul li {
+			display: inline-block;
+		}
+
+	div pre code {
+		width: 100%;
+		padding: 0.5rem 0.5rem;
+	}
+
+	form .field.complete{
+		width: 100% !important;
+		}
+
+	input[type='submit']:hover {
+		background-color: rgba(255, 255, 255, 0.075);
+		color: #ffffff !important;
+		text-decoration-color: white;
+	}
+
+	input[type='button'].special:hover {
+		background-color: rgba(255, 255, 255, 0.075);
+		color: #ffffff !important;
+		text-decoration-color: white;
+	}
+
+	input[type='submit'] + a {
+		display: block;
+		min-width: 50px;
+		height: 50px;
+		line-height: 2.75rem;
+		padding: 0.10rem 0.3rem 0.10rem 0.3rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2rem;
+		font-size: 0.8rem;
+		border-bottom: 0;
+		display: inline-block;
+	}
+
+	a input[type='button'] + a {
+		display: block;
+		min-width: 50px;
+		height: 50px;
+		line-height: 2.75rem;
+		padding: 0.10rem 0.3rem 0.10rem 0.3rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2rem;
+		font-size: 0.8rem;
+		border-bottom: 0;
+		display: inline-block;
+	}
+
+	a.Parametro {
+		display: block;
+		min-width: 50px;
+		height: 50px;
+		line-height: 2.75rem;
+		padding: 0.10rem 0.3rem 0.10rem 0.3rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2rem;
+		font-size: 0.8rem;
+		border-bottom: 0;
+		display: inline-block;
+	}
+/* Main */
+
+	#main article {
+		margin: 0 auto;
+	}

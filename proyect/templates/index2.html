@@ -1,0 +1,294 @@
+{% load static %}
+{% load define_select %}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Explorador de Archivos</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="{% static 'assets2/css/main.css' %}" />
+	<link rel="stylesheet" href="{% static 'assets2/css/ie9.css' %}" />
+	<noscript>
+		<link rel="stylesheet" href="{% static 'assets2/css/noscript.css' %}" />
+	</noscript>
+</head>
+
+<body>
+
+	<!-- Wrapper -->
+
+	<div id="wrapper">
+		<!-- Header -->
+		<header id="header">
+
+			<div class="content">
+				<div class="inner">
+
+
+					<section>
+						<div class="table-wrapper">
+
+							<div class="field complete">
+								<label>
+									<h1>Explorador de Archivos</h1>
+								</label>
+								<input name="Identificacion" type="text" disabled="disabled" id="Identificacion"
+									value="{{ RutaTest }}" />
+
+
+								<table>
+									<tbody>
+										<tr valign="middle">
+											<td>
+												<form action="/atras/{{ Porta }}/{{ RutaTest }}" method="GET" name="ver" id="ver">
+													<input name="atras" type="submit" id="atras" value=" < " 
+													{% if RutaTest == 'test' %} disabled="disabled" {% endif %}>
+												</form>
+												<form action="#crear" name="crear" id="crear">
+													<input type="submit" name="Crear" value="Crear" tabindex="4"
+														class="special">
+												</form>
+												<form action="/pegar/{{ Porta }}/{{ RutaTest }}" method="GET" name="pegar" id="pegar">
+													<input name="pegar" type="submit" id="pegar" tabindex="3" value="pegar"
+													{% if not Paste %} disabled="disabled" {% endif %}>
+												</form>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<table>
+								<thead>
+									<tr>
+										{% if subfolder or archives %}
+											<th>Nombre</th>
+										{% else %}
+											<th>Esta carpeta está vacia</th>
+										{% endif %}
+									</tr>
+								</thead>
+
+								<tbody>
+									{% for folder in subfolder %}
+									<tr valign="middle">
+										<td><a href="?Name={{ folder }}&Tipo=Directorio#opc">
+												<img class="image left"
+													src="https://img.icons8.com/ios-glyphs/42/474b4e/folder-invoices--v1.png" />
+												<p>{{ folder }}</p>
+											</a></td>
+									</tr>
+									{% endfor %}
+									{% for archive in archives %}
+									<tr valign="middle">
+										<td><a href="?Name={{ archive }}&Tipo=Archivo#opc">
+												<img class="image left"
+													src="https://img.icons8.com/ios-glyphs/42/474b4e/code-file.png" />
+												<p>{{ archive }}</p>
+											</a></td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</section>
+				</div>
+			</div>
+		</header>
+
+		<!-- Main -->
+		<div id="main">
+
+			<article id="ver">
+				<h2 class="major">VER Cita </h2>
+				<form method="POST" name="Ver2" id="Ver2">
+					<div class="field half first">
+						<label> número cita </label>
+						<pre><code><?php echo $row_RecordsetVerCita['NumeroCita']; ?></code></pre>
+					</div>
+					<div class="field half">
+						<label> Fecha </label>
+						<pre><code><?php echo $row_RecordsetVerCita['Fecha']; ?></code></pre>
+					</div>
+					<div class="field half first">
+						<label> hora </label>
+						<pre><code><?php echo $row_RecordsetVerCita['Hora']; ?></code></pre>
+					</div>
+					<div class="field half">
+						<label> estado </label>
+						<pre><code><?php echo $row_RecordsetVerCita['Estado']; ?></code></pre>
+					</div>
+					<div class="field complete">
+						<label> paciente </label>
+						<pre><code><?php echo $row_RecordsetVerPaciente['Paciente']; ?></code></pre>
+					</div>
+					<div class="field complete">
+						<label> tipo consulta </label>
+						<pre><code><?php echo $row_RecordsetVerTipoConsulta['Descripcion']; ?></code></pre>
+					</div>
+
+					<center>
+						<a href="Pagos.php">
+							<input name="PAGAR" type="button" id="PAGAR" tabindex="2" value="PAGAR" class="special"></a>
+					</center>
+				</form>
+			</article>
+
+			<!-- Opciones -->
+			{% name request as name %}
+			{% tipe request as tipe %}
+
+			<article class="options" id="opc" name="opc">
+
+				{% if tipe == 'Directorio' %}
+					<form class="options" action="/abrir/{{ Porta }}/{{ RutaTest }}" method="GET" name="abrir" id="abrir">
+						
+						<input name="Name" type="hidden" id="Name" value="{{ name }}">
+						<input class="option" type="submit" name="abrir" value="abrir">
+
+					</form>
+				{% endif %}
+				
+				<form class="options" action="/copiar/{{ Porta }}/{{ RutaTest }}" method="GET" name="copiar" id="copiar">
+					
+					<input name="Tipo" type="hidden" value="{{ tipe }}">
+					<input name="Name" type="hidden" id="Name" value="{{ name }}">
+					<input class="option" type="submit" name="Copiar" value="Copiar">
+
+				</form>
+				<form class="options" action="/cortar/{{ Porta }}/{{ RutaTest }}/" method="GET" name="opciones" id="opciones">
+
+					<input name="Tipo" type="hidden" value="{{ tipe }}">
+					<input name="Name" type="hidden" id="Name" value="{{ name }}">
+					<input class="option" type="submit" name="Cortar" value="Cortar">
+
+				</form>
+				<form class="options" action="#" method="GET" name="opciones" id="opciones">
+
+					<input class="option" type="submit" name="VerPermisos" value="Ver Permisos">
+
+				</form>
+				<form class="options" action="#" method="GET" name="opciones" id="opciones">
+
+					<input class="option" type="submit" name="CambiarPermisos" value="Cambiar Permisos">
+
+				</form>
+				<form class="options" action="#" method="GET" name="opciones" id="opciones">
+
+					<input class="option" type="submit" name="CambiarPropietario" value="Cambiar Propietario">
+
+				</form>
+				<form class="options" action="/eliminar/{{ Porta }}/{{ RutaTest }}" method="GET" name="eliminar" id="eliminar">
+
+					<input name="Tipo" type="hidden" value="{{ tipe }}">
+					<input name="Name" type="hidden" id="Name" value="{{ name }}">
+					<input class="option" type="submit" name="Eliminar" value="Eliminar">
+
+				</form>
+				<form class="options" action="#cambiarnombre" method="GET" name="cambiarnombre" id="cambiarnombre">
+
+					<input name="Tipo" type="hidden" value="Directorio">
+					<input name="Name" type="hidden" id="Name" value="{{ name }}">
+					<input class="option" type="submit" name="CambiarNombre" value="Cambiar Nombre">
+
+				</form>
+			</article>
+
+			<!-- Crear -->
+			<article id="crear" name="crear">
+				<h2 class="major">crear</h2>
+				<form action="/crear/{{ Porta }}/{{ RutaTest }}" method="GET" name="Crear2" id="Crear2">
+
+					<div class="field half first">
+						<label>Tipo</label>
+						<div class="select-wrapper">
+							<select name="Tipo" size="1" id="Tipo" required="required">
+								<option value="Directorio">Directorio</option>
+								<option value="Archivo">Archivo</option>
+							</select>
+						</div>
+					</div>
+					<div class="field half">
+						<label>Nombre</label>
+						<input name="Nombre" type="text" id="Nombre" required="required" />
+					</div>
+
+					<center>
+						<input type="submit" name="Crear" value="Crear" tabindex="1" class="special">
+						<a href="#">
+							<input name="Volver" type="button" id="Volver" tabindex="2" value="Volver">
+						</a>
+					</center>
+				</form>
+			</article>
+
+			<!-- Cambiar Nombre -->
+			{% tipe request as tipe %}
+			<article id="cambiarnombre" name="cambiarnombre">
+				<h2 class="major">Cambiar Nombre</h2>
+				<form action="/cambiarnombre/{{ Porta }}/{{ RutaTest }}" method="GET" name="cambiarnombre" id="cambiarnombre">
+					
+					<input name="Name" type="hidden" id="Name" value="{{ name }}" />
+					<input name="Tipo" type="hidden" id="Tipo" value="{{ tipe }}" />
+
+					<div class="field complete">
+						<label>Nuevo Nombre</label>
+						<input name="Nuevo" type="text" id="Nuevo" required="required" value="{{ name }}" />
+					</div>
+
+					<center>
+						<input type="submit" name="Cambiar" value="Cambiar" tabindex="1" class="special">
+						<a href="#">
+							<input name="Volver" type="button" id="Volver" tabindex="2" value="Volver">
+						</a>
+					</center>
+				</form>
+			</article>
+
+
+			<!-- Eliminar -->
+			<article id="eliminar">
+				<h2 class="major">ELIMINAR cita </h2>
+				<form action="" method="POST" name="Eliminar2" id="Eliminar2">
+					<div class="field half first">
+						<label> Número cita </label>
+						<pre><code><input name="NumeroCita" type="hidden" id="NumeroCita" value="<?php echo $row_RecordsetVerCita['NumeroCita']; ?>"></code></pre>
+					</div>
+					<div class="field half ">
+						<label> fecha </label>
+						<pre><code><?php echo $row_RecordsetVerCita['Fecha']; ?></code></pre>
+					</div>
+					<div class="field half first">
+						<label> hora </label>
+						<pre><code><?php echo $row_RecordsetVerCita['Hora']; ?></code></pre>
+					</div>
+					<div class="field half">
+						<label> estado </label>
+						<pre><code><?php echo $row_RecordsetVerCita['Estado']; ?></code></pre>
+					</div>
+					<div class="field complete">
+						<label> paciente </label>
+						<pre><code><?php echo $row_RecordsetVerPaciente['Paciente']; ?></code></pre>
+					</div>
+					<div class="field complete">
+						<label>tipo consulta </label>
+						<pre><code><?php echo $row_RecordsetVerTipoConsulta['Descripcion']; ?></code></pre>
+					</div>
+					<center>
+						<input type="submit" name="Eliminar" value="Eliminar" tabindex="1" class="special">
+						<a href="Citas.php?Codigo=<?php echo $row_RecordsetPaciente['Identificacion']; ?>">
+							<input name="Cancelar" type="button" id="Cancelar" tabindex="2" value="Cancelar"></a>
+					</center>
+				</form>
+			</article>
+
+	<!-- Scripts -->
+	<script src="{% static 'assets2/js/jquery.min.js' %}"></script>
+	<script src="{% static 'assets2/js/skel.min.js' %}"></script>
+	<script src="{% static 'assets2/js/util.js' %}"></script>
+	<script src="{% static 'assets2/js/main.js' %}"></script>
+
+</body>
+
+</html>
