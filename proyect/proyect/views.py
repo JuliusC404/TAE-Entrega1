@@ -1,114 +1,40 @@
-from django.http import HttpResponse
-from django.template import Template, Context, loader
 from django.shortcuts import redirect, render
 from pathlib import Path
-from subprocess import check_output, run, Popen, call, PIPE
-import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-""" def index(request):
+def rredirect(request):
+    return redirect('/index/inicio/-/')
 
-    dochtml = open("index.html")
-    plt = Template(dochtml.read())
-    dochtml.close()
-
-    rutashow = 'test/'
-    rutacom = os.path.join(BASE_DIR, rutashow)
-
-    context = Context({
-        "RutaTest": rutashow
-    })
-    doc = plt.render(context)
-    
-    return HttpResponse(doc) """
-
-def index(request):
-
-    """ dochtml = open("index.html")
-    plt = Template(dochtml.read())
-    dochtml.close() """
-
-    rutashow = 'test/'
-    rutacom = os.path.join(BASE_DIR, rutashow)
+def index(request, current, predict):
 
     context = {
-        "RutaTest": rutashow
-    }
-    """ doc = plt.render(context) """
-    
-    return render(request, 'index.html', context)
-
-
-def index2(request, Porta, Ruta):
-
-#Define la ruta actual
-    rutashow = ''
-    rutasplit = Ruta.split('-')
-    for rut in rutasplit:
-        rutashow = os.path.join(rutashow, rut)
-
-#Lista las carpetas y archivos
-    with os.scandir(rutashow) as items:
-        subfolder = [fichero.name for fichero in items if fichero.is_dir()]
-
-    with os.scandir(rutashow) as items:
-        archives = [fichero.name for fichero in items if fichero.is_file()]
-
-#Habilita o Desabilita el 'Paste'
-    Paste = False
-    if Porta[:4]=='Copy' or Porta[:3]=='Cut':
-        Paste = True
-
-    context = {
-        "RutaTest": Ruta,
-        "Porta": Porta,
-        "Paste": Paste,
-        "subfolder": subfolder,
-        "archives": archives
+        "current": current,
+        "predict": predict
     }
     
-    return render(request, 'index2.html', context)
+    return render(request, 'Index.html', context)
 
-def test(request):
-    mensaje = ""
-
-    rutas = ['test']
-    
-    rutashow= ''
-    for rut in rutas:
-        rutashow = os.path.join(rutashow,rut)
-
-    with os.scandir(rutashow) as items:
-        subfolder = [fichero.name for fichero in items if fichero.is_dir()]
-
-    with os.scandir(rutashow) as items:
-        archives = [fichero.name for fichero in items if fichero.is_file()]
-
+# Predicción para abuelos
+def predictAbue(request):
+    comando = "No sirvió :("
     if request.GET:
-        if request.GET.get('Tipo', '')!='' and request.GET.get('Nombre', '')!='':
-            crear(request, rutashow)
-            mensaje = rutashow
-    else: 
-        mensaje = "No dio :("
-    return HttpResponse([subfolder, archives])
+        sexo = request.GET.get('sexo', '')
+        abuelo = request.GET.get('abuelo', '')
+        ingreso = request.GET.get('ingreso', '')
+        salud = request.GET.get('salud', '')
+        seguridad = request.GET.get('seguridad', '')
+        trabajo = request.GET.get('trabajo', '')
+        feliz = request.GET.get('feliz', '')
+        preocupado = request.GET.get('preocupado', '')
+        triste = request.GET.get('triste', '')
+        worth = request.GET.get('worth', '')
+        vida = request.GET.get('vida', '')
 
-#Vista Atras
-
-def atras(request, Porta, Ruta):
-    newRuta = ''
-    rutasplit = Ruta.split('-')[:-1]
-    for i in rutasplit:
-        newRuta = newRuta + i + '-'
-    return redirect('/index2/' + Porta + '/' + newRuta[:-1])
-
-#Vista Abrir
-
-def abrir(request, Porta, Ruta):
-    if request.GET:            
-            name = request.GET.get('Name', '')
-    return redirect('/index2/' + Porta + '/' + Ruta + '-' + name)
-
+        comando = sexo + abuelo + ingreso + salud + seguridad + trabajo + feliz + preocupado + triste + worth + vida
+    
+    return redirect('../index/inicio/'+comando+'/')
+"""
 #Vista Crear
 
 def crear(request, Porta, Ruta):
@@ -236,4 +162,4 @@ def pegar(request, Porta, Ruta):
         Porta = 'test'
 
     return redirect('/index2/' + Porta + '/' + Ruta)
-    #return HttpResponse(comando)
+    #return HttpResponse(comando) """

@@ -11,3 +11,7 @@ def name(request):
 @register.simple_tag
 def tipe(request):
   return request.GET.get('Tipo', '')
+
+@register.simple_tag
+def current(request):
+  return request.GET.get('current', '')

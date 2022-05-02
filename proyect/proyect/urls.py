@@ -17,19 +17,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from proyect.views import cambiarnombre, index, index2, test, atras, abrir, crear, cambiarnombre, eliminar, copiar, cortar, pegar
+from proyect.views import rredirect, index, predictAbue
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', index),
-    path('test/', test),
-    path('index2/<Porta>/<Ruta>/', index2),
-    path('crear/<Porta>/<Ruta>/', crear),
-    path('abrir/<Porta>/<Ruta>/', abrir),
-    path('atras/<Porta>/<Ruta>/', atras),
-    path('cambiarnombre/<Porta>/<Ruta>/', cambiarnombre),
-    path('eliminar/<Porta>/<Ruta>/', eliminar),
-    path('copiar/<Porta>/<Ruta>/', copiar),
-    path('cortar/<Porta>/<Ruta>/', cortar),
-    path('pegar/<Porta>/<Ruta>/', pegar),
+    path('', rredirect),
+    path('/', rredirect),
+    path('index/<current>/<predict>/', index),
+    path('predictAbue/', predictAbue),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
