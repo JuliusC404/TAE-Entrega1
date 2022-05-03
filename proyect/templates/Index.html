@@ -24,16 +24,15 @@
 					<li><a href="../../../index/inicio/{{ predict }}">Inicio</a></li>
 				</ul>
 				<ul>
-					<li><a href="../../../index/visualizacion/{{ predict }}">Visualización</a></li>
+					<li><a href="../../../index/visualizacion/{{ predict }}">Graficas dinámicas</a></li>
 				</ul>
 				<ul>
-					<li><a href="../../../index/estudio/{{ predict }}">Estudio estadístico</a></li>
+					<li><a href="../../../index/prediccion1/{{ predict }}">Predicción niños</a></li>
 				</ul>
 				<ul>
-					<li><a href="../../../index/prediccion/{{ predict }}">Predicción</a></li>
+					<li><a href="../../../index/prediccion2/{{ predict }}">Predicción abuelos</a></li>
 				</ul>
 			</nav>
-			<a href="#" class="button scrolly">BOTÓN</a>
 		</div>
 	</section>
 
@@ -58,260 +57,32 @@
 			<div class="inner">
 				<!-- INICIO -->
 				{% if current == 'inicio' %}
-				<h2>Aquí va el trabajo escrito</h2>
-				<h2>{{ predict }}</h2>
+				{% include '01_00_build_models.html' %}
 
 				{% endif %}
 
 				<!-- VISUALIZACION -->
 				{% if current == 'visualizacion' %}
-				{% include 'plotly_graph.html' %}
-				<br>
 				{% include 'piramide_poblacion.html' %}
 				<br>
 				{% include 'comparacion_satisfaccion.html' %}
 				{% endif %}
 
-				<!-- ESTUDIO ESTADISTICO -->
-				{% if current == 'estudio' %}
-
+				<!-- PREDICCION NIÑOS -->
+				{% if current == 'prediccion1' %}
+				{% if predict != '-' %}
+				<h1>El nivel de satisfacción es: <span><b>{{ predict }}</b></span></h1>
 				{% endif %}
-				<!-- PREDICCION -->
-				{% if current == 'prediccion' %}
-				<form action="/predictAbue/" method="GET" name="Predecir" id="Predecir">
-
-					<div class="field complete">
-						<label>Sexo</label>
-						<div class="select-wrapper">
-							<select name="abuelo" size="1" id="abuelo" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">Hombre</option>
-								<option value="2">Mujer</option>
-							</select>
-						</div>
-					</div>
-					<div class="field complete">
-						<label>¿Es mayor de 60 años?</label>
-						<div class="select-wrapper">
-							<select name="abuelo" size="1" id="abuelo" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">Sí</option>
-								<option value="0">No</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="field complete">
-						<label>¿Cuántos años cumplidos tiene?</label>
-						<input name="anios" type="text" id="anios" required="required" style="width: 30%;"/>
-					</div>
-					
-					<div class="field complete">
-						<label> En general, ¿Qué tan satisfecho(a) se siente con su ingreso actualmente?</label>
-						<div class="select-wrapper">
-							<select name="ingreso" size="1" id="ingreso" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">0 - Totalmente insatisfecho(a)</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10 - Totalmente satisfecho(a)</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="field complete">
-						<label> En general, ¿Qué tan satisfecho(a) se siente con su salud actualmente?</label>
-						<div class="select-wrapper">
-							<select name="salud" size="1" id="salud" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">0 - Totalmente insatisfecho(a)</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10 - Totalmente satisfecho(a)</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="field complete">
-						<label> En general, ¿Qué tan satisfecho(a) se siente con su nivel de seguridad actualmente?</label>
-						<div class="select-wrapper">
-							<select name="seguridad" size="1" id="seguridad" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">0 - Totalmente insatisfecho(a)</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10 - Totalmente satisfecho(a)</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="field complete">
-						<label> En general, ¿Qué tan satisfecho(a) se siente con su trabajo/actividad actualmente?</label>
-						<div class="select-wrapper">
-							<select name="trabajo" size="1" id="trabajo" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">0 - Totalmente insatisfecho(a)</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10 - Totalmente satisfecho(a)</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="field complete">
-						<label> En general, ¿Qué tan satisfecho/a se siente con su tiempo libre?</label>
-						<div class="select-wrapper">
-							<select name="libre" size="1" id="libre" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">0 - Totalmente insatisfecho(a)</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10 - Totalmente satisfecho(a)</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="field complete">
-						<label> ¿Qué tan feliz se sintió el día de ayer?</label>
-						<div class="select-wrapper">
-							<select name="feliz" size="1" id="feliz" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">0 - Para nada feliz</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10 - Todo el tiempo feliz</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="field complete">
-						<label> ¿Qué tan preocupado(a) se sintió el día de ayer?</label>
-						<div class="select-wrapper">
-							<select name="preocupado" size="1" id="preocupado" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">0 - Para nada preocupado(a)</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10 - Todo el tiempo preocupado(a)</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="field complete">
-						<label> ¿Qué tan triste se sintió el día de ayer?</label>
-						<div class="select-wrapper">
-							<select name="triste" size="1" id="triste" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">0 - Para nada triste</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10 - Todo el tiempo triste</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="field complete">
-						<label> ¿Qué tanto considera que las cosas que hace en su vida valen la pena?</label>
-						<div class="select-wrapper">
-							<select name="worth" size="1" id="worth" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">0 - No valen la pena</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10 - Valen totalmente la pena</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="field complete">
-						<label> ¿En cuál escalón diría usted que se encuentra parado(a) en este momento?</label>
-						<div class="select-wrapper">
-							<select name="vida" size="1" id="vida" required="required" style="width: 30%;">
-								<option value="">Seleccione</option>
-								<option value="1">0 - Peor vida</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10 - Mejor vida</option>
-							</select>
-						</div>
-					</div>
-					<br>
-					<center>
-						<input type="submit" name="Predecir" value="Predecir" tabindex="1" class="special">
-					</center>
-				</form>
+				{% include 'predictNinios.html' %}
 				{% endif %}
 
+				<!-- PREDICCION BUELOS-->
+				{% if current == 'prediccion2' %}
+				{% if predict != '-' %}
+				<h1>El nivel de satisfacción es: <span><b>{{ predict }}</b></span></h1>
+				{% endif %}
+				{% include 'predictAbuelos.html' %}
+				{% endif %}
 			</div>
 		</section>
 	</div>

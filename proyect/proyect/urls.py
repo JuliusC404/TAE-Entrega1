@@ -17,12 +17,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from proyect.views import rredirect, index, predictAbue
+from proyect.views import rredirect, index, predictAbue, predictNinios
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', rredirect),
-    path('/', rredirect),
     path('index/<current>/<predict>/', index),
     path('predictAbue/', predictAbue),
+    path('predictNinios/', predictNinios),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
